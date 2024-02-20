@@ -1,24 +1,31 @@
 ### Create new
 POST {{url}}/articles
+x-category-id: 2
 Content-Type: application/json
 
 {
-  "name": "Merlot"
+  "name": "Merlot",
+  "description": "a tasty red wine, try it!",
+  "price": 5.20,
+  "picture": "abcd"
 }
 
 ### Modify
-PUT {{url}}/articles/4711
+PUT {{url}}/articles/51
 Content-Type: application/json
 
 {
-  "name": "Merlot"
+  "name": "Merlot",
+  "description": "a tasty red wine, try it!",
+  "price": 5.30,
+  "picture": "abcd"
 }
 
 ### Get all
 GET {{url}}/articles
 
 ### Get single
-GET {{url}}/articles/4711
+GET {{url}}/articles/51
 
 ### Delete
-DELETE {{url}}/articles/4711
+DELETE {{url}}/articles/51

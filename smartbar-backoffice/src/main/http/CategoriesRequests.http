@@ -3,7 +3,8 @@ POST {{url}}/categories
 Content-Type: application/json
 
 {
-  "name": "wine"
+  "name": "hot drinks",
+  "description": "hot drinks when its getting cold outside"
 }
 
 ### Modify
@@ -18,7 +19,7 @@ Content-Type: application/json
 GET {{url}}/categories
 
 ### Get single
-GET {{url}}/categories/4711
+GET {{url}}/categories/1
 
 ### Delete
-DELETE {{url}}/categories/4711
+DELETE {{url}}/categories/1

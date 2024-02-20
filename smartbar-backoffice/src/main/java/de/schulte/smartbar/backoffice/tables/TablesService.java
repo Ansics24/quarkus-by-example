@@ -1,7 +1,6 @@
 package de.schulte.smartbar.backoffice.tables;
 
 import de.schulte.smartbar.backoffice.CrudService;
-import de.schulte.smartbar.backoffice.api.model.ApiTable;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
@@ -19,8 +18,9 @@ public class TablesService extends CrudService<Table> {
         super(entityManager);
     }
 
-    public ApiTable get() {
-        return new ApiTable().name("Berlin");
+    @Override
+    protected Class<Table> getEntityClass() {
+        return Table.class;
     }
 
 }

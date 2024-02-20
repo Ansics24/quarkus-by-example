@@ -3,13 +3,13 @@ POST {{url}}/tables
 Content-Type: application/json
 
 {
-  "name": "oslo",
-  "seatCount": 4,
+  "name": "Stockholm",
+  "seatCount": 10,
   "active": false
 }
 
 ### Modify
-PUT {{url}}/tables/4711
+PUT {{url}}/tables/2
 Content-Type: application/json
 
 {
@@ -20,7 +20,7 @@ Content-Type: application/json
 GET {{url}}/tables
 
 ### Get single
-GET {{url}}/tables/4711
+GET {{url}}/tables/4
 
 ### Delete
-DELETE {{url}}/tables/4711
+DELETE {{url}}/tables/1
