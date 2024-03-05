@@ -2,23 +2,33 @@ package de.schulte.smartbar.backoffice.articles;
 
 import de.schulte.smartbar.backoffice.BaseEntity;
 import de.schulte.smartbar.backoffice.categories.Category;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
 import java.math.BigDecimal;
 
 @Entity
+@Table(uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"name", "category_id"})
+})
 public class Article extends BaseEntity {
 
+    @NotNull
     private String name;
 
+    @NotNull
+    @Positive
     private BigDecimal price;
 
+    @NotNull
     private String description;
 
+    @NotNull
     private String pictureBase64;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "category_id")
     private Category category;
 
     public String getName() {

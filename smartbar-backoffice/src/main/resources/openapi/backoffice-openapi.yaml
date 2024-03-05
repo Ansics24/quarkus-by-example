@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.0.3
 info:
   title: Smarbar Backoffice AP
   description: Smarbar Backoffice AP
@@ -14,8 +14,7 @@ paths:
           content:
             application/json:
               schema:
-                type:
-                  - array
+                type: array
                 items:
                   $ref: "#/components/schemas/apiCategory"
     post:
@@ -188,6 +187,9 @@ components:
   schemas:
     apiCategory:
       type: object
+      required:
+        - name
+        - description
       properties:
         id:
           type: integer
@@ -198,6 +200,11 @@ components:
           type: string
     apiArticle:
       type: object
+      required:
+        - name
+        - price
+        - picture
+        - description
       properties:
         id:
           type: integer
@@ -212,6 +219,10 @@ components:
           type: string
     apiTable:
       type: object
+      required:
+        - name
+        - seatCount
+        - active
       properties:
         id:
           type: integer

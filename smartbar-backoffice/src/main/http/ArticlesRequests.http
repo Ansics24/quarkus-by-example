@@ -1,6 +1,6 @@
 ### Create new
 POST {{url}}/articles
-x-category-id: 2
+x-category-id: 1
 Content-Type: application/json
 
 {
