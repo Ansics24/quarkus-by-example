@@ -9,8 +9,6 @@ import io.vertx.redis.client.RedisAPI;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
-import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
 
 @ApplicationScoped
@@ -32,18 +30,21 @@ public class RedisLoginService implements LoginService {
     @Override
     public Uni<String> createNewLogin(final String tableId) {
         final var token = UUID.randomUUID().toString();
-        //return tokens.set(tableId, token).chain(v-> keys.expire(tableId, 20)).map(v -> token);
+        return tokens.set(tableId, token).chain(v-> keys.expire(tableId, 20)).map(v -> token);
 
-        return Uni.createFrom()
-                  .completionStage(redisApi.set(List.of(tableId, token, "EX", "20"))
-                                           .map(r -> token)
-                                           .toCompletionStage());
+        // Use this for the low level API
+        //return Uni.createFrom()
+        //          .completionStage(redisApi.set(List.of(tableId, token, "EX", "20"))
+        //                                   .map(r -> token)
+        //                                   .toCompletionStage());
     }
 
     @Override
     public Uni<Boolean> hasLogin(final String tableId) {
-        return Uni.createFrom().completionStage(redisApi.get(tableId).map(Objects::nonNull).toCompletionStage());
-        //return keys.exists(tableId);
+        return keys.exists(tableId);
+
+        // Use this for the low level API
+        //return Uni.createFrom().completionStage(redisApi.get(tableId).map(Objects::nonNull).toCompletionStage());
     }
 
 }
