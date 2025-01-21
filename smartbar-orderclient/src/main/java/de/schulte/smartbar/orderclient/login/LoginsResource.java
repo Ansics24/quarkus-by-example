@@ -17,7 +17,7 @@ public class LoginsResource implements LoginsApi {
     private final LoginService loginService;
 
     @Inject
-    public LoginsResource(@RestClient MenuApiClient menuApiClient, MenuMapper menuMapper, RedisLoginService loginService) {
+    public LoginsResource(@RestClient MenuApiClient menuApiClient, MenuMapper menuMapper, LoginService loginService) {
         this.menuApiClient = menuApiClient;
         this.menuMapper = menuMapper;
         this.loginService = loginService;

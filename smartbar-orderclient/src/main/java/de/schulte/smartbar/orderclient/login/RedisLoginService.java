@@ -6,12 +6,10 @@ import io.quarkus.redis.datasource.keys.ReactiveKeyCommands;
 import io.quarkus.redis.datasource.value.ReactiveValueCommands;
 import io.smallrye.mutiny.Uni;
 import io.vertx.redis.client.RedisAPI;
-import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
 import java.util.UUID;
 
-@ApplicationScoped
 public class RedisLoginService implements LoginService {
 
     private final ReactiveValueCommands<String, String> tokens;
