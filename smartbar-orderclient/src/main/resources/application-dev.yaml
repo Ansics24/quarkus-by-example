@@ -8,3 +8,5 @@ quarkus:
   redis:
     logins:
       hosts: redis://localhost:5200/0
+  mongodb:
+    connection-string: mongodb://localhost:5300
