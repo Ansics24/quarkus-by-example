@@ -1,6 +1,5 @@
-package de.schulte.smartbar.orderclient.login.redis;
+package de.schulte.smartbar.orderclient.login;
 
-import de.schulte.smartbar.orderclient.login.LoginService;
 import io.quarkus.redis.client.RedisClientName;
 import io.quarkus.redis.datasource.ReactiveRedisDataSource;
 import io.quarkus.redis.datasource.keys.ReactiveKeyCommands;
