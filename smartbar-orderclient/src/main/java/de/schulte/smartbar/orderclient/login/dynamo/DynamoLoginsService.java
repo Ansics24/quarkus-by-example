@@ -18,7 +18,7 @@ import java.util.UUID;
 @ApplicationScoped
 public class DynamoLoginsService implements LoginService {
 
-    private DynamoDbAsyncClient dynamoDbClient;
+    private final DynamoDbAsyncClient dynamoDbClient;
 
     @Inject
     public DynamoLoginsService(DynamoDbAsyncClient dynamoDbClient) {
