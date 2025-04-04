@@ -182,7 +182,7 @@
         <version>1.6.0</version>
         <executions>
           <execution>
-            <id>Create Docker native image</id>
+            <id>Create Docker image</id>
             <phase>install</phase>
             <goals>
               <goal>exec</goal>
