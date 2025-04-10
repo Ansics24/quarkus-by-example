@@ -11,4 +11,8 @@ public class LoginRepository implements ReactivePanacheMongoRepository<Login> {
         return find("tableNumber", tableId).firstResult();
     }
 
+    public Uni<Login> findByLoginToken(final String loginToken) {
+        return find("token", loginToken).firstResult();
+    }
+
 }

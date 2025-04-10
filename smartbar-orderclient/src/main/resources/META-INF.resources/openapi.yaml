@@ -171,9 +171,11 @@ components:
       type: object
       properties:
         articleId:
-          type: string
+          type: integer
+          format: int64
         quantity:
           type: integer
+          format: int32
         price:
           type: number
     GetOrderItem:

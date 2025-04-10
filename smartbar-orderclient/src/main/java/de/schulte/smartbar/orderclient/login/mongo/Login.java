@@ -5,7 +5,7 @@ import org.bson.codecs.pojo.annotations.BsonProperty;
 
 import java.time.Instant;
 
-@MongoEntity(database = "logins", collection = "logins-timed")
+@MongoEntity(database = "smartbar-oc", collection = "logins-timed")
 public class Login {
 
     @BsonProperty("tableNumber")

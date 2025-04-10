@@ -2,12 +2,14 @@ package de.schulte.smartbar.orderclient.login.mongo;
 
 import de.schulte.smartbar.orderclient.login.LoginService;
 import io.smallrye.mutiny.Uni;
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
 import java.time.Instant;
 import java.util.Objects;
 import java.util.UUID;
 
+@ApplicationScoped
 public class MongoLoginService implements LoginService {
 
     private final LoginRepository loginRepository;
@@ -26,8 +28,18 @@ public class MongoLoginService implements LoginService {
     }
 
     @Override
-    public Uni<Boolean> hasLogin(String tableId) {
+    public Uni<Boolean> hasLoginByTableId(String tableId) {
         return loginRepository.findByTableId(tableId).map(Objects::nonNull);
+    }
+
+    @Override
+    public Uni<String> getTableIdByToken(String loginToken) {
+        return loginRepository.findByLoginToken(loginToken).map(this::getTableIdIfValidOrElseNull);
+    }
+
+    private String getTableIdIfValidOrElseNull(Login login) {
+        final var valid = login != null && login.getExpiresAt().isAfter(Instant.now());
+        return valid ? login.getTableId() : null;
     }
 
 }

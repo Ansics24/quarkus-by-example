@@ -39,11 +39,15 @@ public class RedisLoginService implements LoginService {
     }
 
     @Override
-    public Uni<Boolean> hasLogin(final String tableId) {
+    public Uni<Boolean> hasLoginByTableId(final String tableId) {
         return keys.exists(tableId);
 
         // Use this for the low level API
         //return Uni.createFrom().completionStage(redisApi.get(tableId).map(Objects::nonNull).toCompletionStage());
     }
 
+    @Override
+    public Uni<String> getTableIdByToken(String loginToken) {
+        return null;
+    }
 }

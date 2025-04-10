@@ -35,7 +35,7 @@ public class LoginsResource implements LoginsApi {
                                                                             .transform(token -> Response.ok(reponse)
                                                                                                         .build()));
 
-        return loginService.hasLogin(tableId)
+        return loginService.hasLoginByTableId(tableId)
                            .chain(hasLogin -> hasLogin ? getLoginAlreadyExists() : chain)
                            .subscribeAsCompletionStage();
     }
