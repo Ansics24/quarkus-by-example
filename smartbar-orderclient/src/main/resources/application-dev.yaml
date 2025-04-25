@@ -8,3 +8,14 @@ quarkus:
   redis:
     logins:
       hosts: redis://localhost:5200/0
+  mongodb:
+    connection-string: mongodb://localhost:5300
+  dynamodb:
+    endpoint-override: http://localhost:5500
+    aws:
+      region: eu-central-1
+      credentials:
+        type: static
+        static-provider:
+          access-key-id: test
+          secret-access-key: test
