@@ -19,3 +19,4 @@ buildNumber.properties
 /smartbar-backoffice-ui.iml
 
 /.quarkus/cli/plugins/quarkus-cli-catalog.json
+/.idea/
