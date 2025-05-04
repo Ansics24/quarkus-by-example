@@ -1,24 +1,25 @@
 package de.schulte.smartbar.backoffice.messaging;
 
+import io.smallrye.mutiny.Uni;
+import io.smallrye.reactive.messaging.MutinyEmitter;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import org.eclipse.microprofile.reactive.messaging.Channel;
-import org.eclipse.microprofile.reactive.messaging.Emitter;
 
 @Path("/message")
 public class MessagingResource {
 
-    private final Emitter<String> emitter;
+    private final MutinyEmitter<String> emitter;
 
-    public MessagingResource(@Channel("my-channel") Emitter<String> emitter) {
+    public MessagingResource(@Channel("my-channel") MutinyEmitter<String> emitter) {
         this.emitter = emitter;
     }
 
     @POST
     @Consumes("text/plain")
-    public Object postMessage(final String text) {
-        return emitter.send(text);
+    public Uni<String> postMessage(final String text) {
+        return this.emitter.send(text).map(r -> "Message sent");
     }
 
 }

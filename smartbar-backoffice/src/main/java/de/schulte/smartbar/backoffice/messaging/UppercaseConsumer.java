@@ -6,9 +6,8 @@ import org.eclipse.microprofile.reactive.messaging.Incoming;
 @ApplicationScoped
 public class UppercaseConsumer {
 
-    @Incoming("uppercase-channel")
-    public void consumeMessage(String content) {
-        System.out.printf("%s: %s%n", this.getClass().getSimpleName(), content);
+    @Incoming("uppcase-channel")
+    public void consume(String message) {
+        System.out.printf("Message '%s' consumed in %s %n", message, this.getClass().getSimpleName());
     }
-
 }

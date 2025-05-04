@@ -8,10 +8,10 @@ import org.eclipse.microprofile.reactive.messaging.Outgoing;
 public class MessageConsumer {
 
     @Incoming("my-channel")
-    @Outgoing("uppercase-channel")
-    public String consumeMessage(String content) {
-        System.out.printf("%s: %s%n", this.getClass().getSimpleName(), content);
-        return content.toUpperCase();
+    @Outgoing("uppcase-channel")
+    public String consume(String message) {
+        System.out.printf("Message '%s' consumed in %s %n", message, this.getClass().getSimpleName());
+        return message.toUpperCase();
     }
 
 }
