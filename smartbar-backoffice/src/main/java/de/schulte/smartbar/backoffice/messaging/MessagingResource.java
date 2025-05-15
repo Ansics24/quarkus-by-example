@@ -5,6 +5,7 @@ import io.smallrye.reactive.messaging.MutinyEmitter;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
+import jakarta.ws.rs.core.Response;
 import org.eclipse.microprofile.reactive.messaging.Channel;
 import org.eclipse.microprofile.reactive.messaging.Message;
 import org.eclipse.microprofile.reactive.messaging.Metadata;
@@ -20,9 +21,12 @@ public class MessagingResource {
 
     @POST
     @Consumes("text/plain")
-    public Uni<String> postMessage(final String text) {
+    public Uni<Response> postMessage(final String text) {
         final var message = Message.of(text, Metadata.of(System.currentTimeMillis()));
-        return this.emitter.sendMessage(message).map(r -> "Message sent");
+        return this.emitter.sendMessage(message)
+                .map(r -> Response.ok("Message sent").build())
+                .onFailure()
+                .recoverWithItem(() -> Response.status(Response.Status.INTERNAL_SERVER_ERROR).build());
     }
 
 }

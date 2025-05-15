@@ -11,12 +11,12 @@ public class MessageConsumer {
 
     @Incoming("my-channel")
     @Outgoing("uppcase-channel")
-    public Uni<String> consume(final Message<String> message) {
+    public Uni<Message<String>> consume(final Message<String> message) {
         final var payload = message.getPayload();
         final var currentMillis = message.getMetadata(Long.class);
         System.out.printf("Message '%s' consumed in %s %n", payload, this.getClass().getSimpleName());
         currentMillis.ifPresent(System.out::println);
-        return Uni.createFrom().completionStage(message.ack()).map(c -> payload.toUpperCase());
+        return Uni.createFrom().item(Message.of(payload.toUpperCase(), () -> message.ack()));
     }
 
 }
