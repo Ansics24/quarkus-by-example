@@ -1,24 +1,29 @@
 ### Create new
 POST {{url}}/articles
-x-category-id: 2
 Content-Type: application/json
 
 {
-  "name": "Merlot",
-  "description": "a tasty red wine, try it!",
-  "price": 5.20,
-  "picture": "abcd"
+  "name": "Cola",
+  "description": "a good old coke. Cheers",
+  "price": 2.20,
+  "pictureBase64": "dddd",
+  "category": {
+    "id" : 1001
+  }
 }
 
 ### Modify
-PUT {{url}}/articles/52
+PUT {{url}}/articles/2006
 Content-Type: application/json
 
 {
   "name": "Merlot",
   "description": "a tasty red wine, try it!",
-  "price": 5.30,
-  "picture": "abcd"
+  "price": 5.80,
+  "pictureBase64": "sadfadfdsfasdfd",
+  "category": {
+    "id" : 1001
+  }
 }
 
 ### Get all
@@ -30,7 +35,7 @@ Authorization: Basic YWxpY2U6cHc=
 GET {{url}}/articles/51
 
 ### Delete
-DELETE {{url}}/articles/51
+DELETE {{url}}/articles/2007
 
 ### Get by category
 GET {{url}}/articles/category/1001
