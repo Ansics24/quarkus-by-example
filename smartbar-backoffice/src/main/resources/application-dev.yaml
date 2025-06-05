@@ -15,3 +15,14 @@ quarkus:
       split-tokens: true
     roles:
       source: accesstoken
+kafka:
+  bootstrap:
+    servers: localhost:9092
+mp:
+  messaging:
+    outgoing:
+      masterdata-changed-channel:
+        connector: smallrye-kafka
+        topic: update-menu-events
+        value:
+          serializer: io.quarkus.kafka.client.serialization.ObjectMapperSerializer
