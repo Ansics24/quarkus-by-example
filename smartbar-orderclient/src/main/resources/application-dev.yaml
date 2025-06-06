@@ -4,7 +4,18 @@ quarkus:
       url: "http://localhost:8088"
   cache:
     caffeine:
-      expire-after-write: 10S
+      expire-after-write: 10M
   redis:
     logins:
       hosts: redis://localhost:5200/0
+kafka:
+  bootstrap:
+    servers: localhost:9092
+mp:
+  messaging:
+    incoming:
+      update-menu-events:
+        connector: smallrye-kafka
+        topic: update-menu-events
+        value:
+          serializer: io.quarkus.kafka.client.serialization.ObjectMapperSerializer
