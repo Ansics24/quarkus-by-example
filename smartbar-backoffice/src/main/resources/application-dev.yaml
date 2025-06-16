@@ -1,4 +1,6 @@
 quarkus:
+  http:
+    port: 8088
   datasource:
     username: bob
     password: bob
