@@ -8,15 +8,23 @@ quarkus:
   redis:
     logins:
       hosts: redis://localhost:5200/0
+  mongodb:
+    connection-string: mongodb://localhost:5300
+  dynamodb:
+    endpoint-override: http://localhost:5500
+    aws:
+      region: eu-central-1
+      credentials:
+        type: static
+        static-provider:
+          access-key-id: test
+          secret-access-key: test
 kafka:
   bootstrap:
     servers: localhost:9092
-rabbitmq-host: localhost
-rabbitmq-port: 5672
 mp:
   messaging:
     incoming:
       update-menu-events:
-        connector: smallrye-rabbitmq
-        queue:
-          name: articles
+        connector: smallrye-kafka
+

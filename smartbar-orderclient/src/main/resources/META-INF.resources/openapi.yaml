@@ -33,7 +33,7 @@ paths:
         schema:
           type: string
     post:
-      description: Place a order
+      description: Place an order
       tags:
         - Orders
       operationId: placeOrder
@@ -171,9 +171,13 @@ components:
       type: object
       properties:
         articleId:
-          type: string
+          type: integer
+          format: int64
         quantity:
           type: integer
+          format: int32
+        price:
+          type: number
     GetOrderItem:
       type: object
       properties:
