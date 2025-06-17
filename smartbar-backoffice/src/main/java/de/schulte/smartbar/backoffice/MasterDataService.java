@@ -2,9 +2,8 @@ package de.schulte.smartbar.backoffice;
 
 import io.quarkus.arc.Unremovable;
 import io.smallrye.reactive.messaging.MutinyEmitter;
-import io.smallrye.reactive.messaging.kafka.api.OutgoingKafkaRecordMetadata;
+import io.smallrye.reactive.messaging.rabbitmq.OutgoingRabbitMQMetadata;
 import jakarta.enterprise.context.ApplicationScoped;
-import org.apache.kafka.common.header.internals.RecordHeaders;
 import org.eclipse.microprofile.reactive.messaging.Channel;
 import org.eclipse.microprofile.reactive.messaging.Message;
 import org.eclipse.microprofile.reactive.messaging.Metadata;
@@ -22,13 +21,11 @@ public class MasterDataService {
     public void fireChangedEvent(BaseEntity baseEntity) {
         System.out.println("MasterDataService.fireChangedEvent");
 
+        String simpleName = baseEntity.getClass().getSimpleName();
         final var payload = new EntityChangedEvent(baseEntity.getId(),
-                baseEntity.getClass().getSimpleName());
-        final var kafkaMetadata = OutgoingKafkaRecordMetadata.builder()
-                .withHeaders(new RecordHeaders().add("my-header", "my-value".getBytes()))
-                .withKey(baseEntity.getClass().getSimpleName())
-                .build();
-        final var message = Message.of(payload, Metadata.of(kafkaMetadata));
+                simpleName);
+        final var metadata = OutgoingRabbitMQMetadata.builder().withRoutingKey(simpleName).build();
+        final var message = Message.of(payload, Metadata.of(metadata));
         emitter.sendMessageAndAwait(message);
     }
 

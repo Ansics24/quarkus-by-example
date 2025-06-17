@@ -11,11 +11,12 @@ quarkus:
 kafka:
   bootstrap:
     servers: localhost:9092
+rabbitmq-host: localhost
+rabbitmq-port: 5672
 mp:
   messaging:
     incoming:
       update-menu-events:
-        connector: smallrye-kafka
-        topic: update-menu-events
-        value:
-          serializer: io.quarkus.kafka.client.serialization.ObjectMapperSerializer
+        connector: smallrye-rabbitmq
+        queue:
+          name: articles
