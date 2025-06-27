@@ -2,7 +2,6 @@ package de.schulte.smartbar.backoffice.articles;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import io.quarkus.hibernate.orm.rest.data.panache.PanacheEntityResource;
-import io.quarkus.rest.data.panache.ResourceProperties;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
@@ -11,7 +10,6 @@ import jakarta.ws.rs.core.MediaType;
 
 import java.util.List;
 
-@ResourceProperties(rolesAllowed = {"admin"})
 public interface ArticlesResource extends PanacheEntityResource<Article, Long> {
 
     @GET

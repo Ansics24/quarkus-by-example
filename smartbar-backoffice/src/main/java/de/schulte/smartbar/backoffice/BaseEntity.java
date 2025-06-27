@@ -1,10 +1,8 @@
 package de.schulte.smartbar.backoffice;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.MappedSuperclass;
-import jakarta.persistence.SequenceGenerator;
+import jakarta.enterprise.inject.spi.CDI;
+import jakarta.persistence.*;
 
 @MappedSuperclass
 public class BaseEntity extends PanacheEntityBase {
@@ -20,5 +18,12 @@ public class BaseEntity extends PanacheEntityBase {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    @PostPersist
+    @PostUpdate
+    @PostRemove
+    public void fireChangedEvent() {
+        CDI.current().select(MasterDataService.class).get().fireChangedEvent(this);
     }
 }

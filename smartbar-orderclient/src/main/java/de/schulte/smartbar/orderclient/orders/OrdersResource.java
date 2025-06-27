@@ -4,18 +4,22 @@ import de.schulte.smartbar.orderclient.api.OrdersApi;
 import de.schulte.smartbar.orderclient.api.model.PlaceOrderRequest;
 import de.schulte.smartbar.orderclient.login.LoginService;
 import io.smallrye.mutiny.Uni;
+import io.smallrye.reactive.messaging.MutinyEmitter;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.core.Response;
+import org.eclipse.microprofile.reactive.messaging.Channel;
 
-import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 
 public class OrdersResource implements OrdersApi {
 
+    private final MutinyEmitter<Order> ordersEventEmitter;
+
     private final LoginService loginService;
 
     @Inject
-    public OrdersResource(LoginService loginService) {
+    public OrdersResource(@Channel("order-placed-channel") MutinyEmitter<Order> ordersEventEmitter, LoginService loginService) {
+        this.ordersEventEmitter = ordersEventEmitter;
         this.loginService = loginService;
     }
 
@@ -45,7 +49,11 @@ public class OrdersResource implements OrdersApi {
         order.orderPositions = placeOrderRequest.getItems().stream().map(item ->
                 new OrderPosition(item.getArticleId(), item.getQuantity(), item.getPrice())).toList();
         order.tableId = tableId;
-        return order.persist().map(o -> Response.ok().build());
+        return order.<Order>persist().flatMap(this::sendOrderPlacedEvent).map(v -> Response.ok().build());
+    }
+
+    private Uni<Void> sendOrderPlacedEvent(Order order) {
+        return this.ordersEventEmitter.send(order);
     }
 
     private Uni<Response> notAllowed() {

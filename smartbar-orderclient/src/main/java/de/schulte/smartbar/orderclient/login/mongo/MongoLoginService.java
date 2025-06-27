@@ -6,6 +6,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
 import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -22,7 +23,7 @@ public class MongoLoginService implements LoginService {
     @Override
     public Uni<String> createNewLogin(String tableId) {
         final var token = UUID.randomUUID().toString();
-        final var expiresAt = Instant.now().plusSeconds(60);
+        final var expiresAt = Instant.now().plus(60, ChronoUnit.MINUTES);
         final var login = new Login(tableId, token, expiresAt);
         return loginRepository.persist(login).map(ignored -> token);
     }

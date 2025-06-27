@@ -7,6 +7,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Entity
 @Table(uniqueConstraints = {
@@ -32,5 +33,9 @@ public class Article extends BaseEntity {
     @ManyToOne(optional = false)
     @JoinColumn(name = "category_id")
     public Category category;
+
+    public Integer timesOrdered;
+
+    public LocalDate lastOrdered;
 
 }
