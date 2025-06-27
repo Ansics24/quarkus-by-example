@@ -1,11 +1,6 @@
 quarkus:
   http:
     port: 8088
-  datasource:
-    username: bob
-    password: bob
-    jdbc:
-      url: jdbc:postgresql://localhost:5432/smartbarbo
   hibernate-orm:
     database:
       generation: drop-and-create
@@ -20,13 +15,19 @@ quarkus:
 kafka:
   bootstrap:
     servers: localhost:9092
-rabbitmq-host: localhost
-rabbitmq-port: 5672
 mp:
   messaging:
     outgoing:
       masterdata-changed-channel:
-        connector: smallrye-rabbitmq
-        exchange:
-          type: topic
-          name: smartbar
+        connector: smallrye-kafka
+    incoming:
+      article-ordered-channel:
+        connector: smallrye-kafka
+        topic: orders-events
+        group:
+          id: backoffice-article-updater
+      turnover-db-channel:
+        connector: smallrye-kafka
+        topic: orders-events
+        group:
+          id: backoffice-turnover-updater

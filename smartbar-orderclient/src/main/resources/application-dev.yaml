@@ -27,4 +27,11 @@ mp:
     incoming:
       update-menu-events:
         connector: smallrye-kafka
+        topic: update-menu-events
+    outgoing:
+      order-placed-channel:
+        connector: smallrye-kafka
+        topic: orders-events
+        value:
+          serializer: io.quarkus.kafka.client.serialization.ObjectMapperSerializer
 
