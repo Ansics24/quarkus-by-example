@@ -1,0 +1,11 @@
+#file: noinspection QsYaml
+quarkus:
+  log:
+    category:
+      "de.schulte.resources":
+        level: ERROR
+      "de.schulte.domain":
+        level: DEBUG
+  otel:
+    logs:
+      enabled: true
